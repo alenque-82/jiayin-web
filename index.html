@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>泉州佳音音响专卖店</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    :root{
+      --bg:#0c0f14;
+      --panel:#151922;
+      --card:#171c25;
+      --text:#f5efe5;
+      --sub:#a4adba;
+      --gold:#d0a15f;
+      --line:rgba(255,255,255,.06);
+      --shadow:0 12px 28px rgba(0,0,0,.24);
+    }
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at top, #212735 0%, #12161d 42%, #090b10 100%);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    }
+
+    .phone{
+      width:390px;
+      margin:14px auto;
+      background: linear-gradient(180deg, #0f131a 0%, #0b0d12 100%);
+      border-radius:30px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.05);
+      box-shadow:0 18px 52px rgba(0,0,0,.34);
+      position:relative;
+      min-height:100vh;
+      padding-bottom:60px;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:10;
+      padding:0;
+      background:
+        linear-gradient(180deg, rgba(54,10,12,.98) 0%, rgba(21,10,12,.96) 100%);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.05);
+      overflow:hidden;
+    }
+
+    .brand-image{
+      width:100%;
+      height:auto;
+      max-height:132px;
+      display:block;
+      object-fit:contain;
+      object-position:center center;
+      background:transparent;
+    }
+
+    .hero{
+      padding:10px 12px 6px;
+    }
+
+    .hero-card{
+      border-radius:22px;
+      background: linear-gradient(180deg, #171c25 0%, #10141b 100%);
+      border:1px solid rgba(255,255,255,.05);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .stage{
+      padding:9px;
+    }
+
+    .stage-frame{
+      border-radius:18px;
+      overflow:hidden;
+      background:#0e1117;
+      border:1px solid rgba(255,255,255,.04);
+    }
+
+    .stage-img-wrap{
+      width:100%;
+      aspect-ratio: 4 / 5;
+      background:#0d1015;
+      overflow:hidden;
+    }
+
+    .stage-img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:contain;
+      object-position:center center;
+      background:#0d1015;
+      opacity:1;
+      transition:opacity .2s ease, transform .2s ease;
+    }
+
+    .thumbs{
+      margin-top:8px;
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      padding-bottom:2px;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .thumb{
+      width:62px;
+      height:62px;
+      flex:0 0 auto;
+      border-radius:13px;
+      overflow:hidden;
+      background:#10131a;
+      border:2px solid transparent;
+      opacity:.72;
+      transition:all .18s ease;
+      cursor:pointer;
+    }
+
+    .thumb.active{
+      opacity:1;
+      border-color:var(--gold);
+      box-shadow:0 0 0 2px rgba(208,161,95,.12);
+      transform:translateY(-1px);
+    }
+
+    .thumb img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    .section{
+      margin:10px 12px 0;
+      padding:12px;
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(24,29,38,.96) 0%, rgba(16,20,27,.96) 100%);
+      border:1px solid rgba(255,255,255,.05);
+      box-shadow:var(--shadow);
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .section-title{
+      margin:0;
+      font-size:16px;
+      line-height:1.25;
+      font-weight:900;
+      color:#fff;
+    }
+
+    .section-desc{
+      margin-top:5px;
+      font-size:11px;
+      line-height:1.6;
+      color:var(--sub);
+    }
+
+    .more{
+      font-size:11px;
+      color:#e2c596;
+      white-space:nowrap;
+      margin-top:2px;
+      font-weight:700;
+    }
+
+    .brand-item{
+      padding-top:12px;
+      padding-bottom:12px;
+      border-top:1px solid var(--line);
+    }
+
+    .brand-item:first-of-type{
+      padding-top:0;
+      border-top:none;
+    }
+
+    .brand-img{
+      width:100%;
+      display:block;
+      border-radius:16px;
+      background:#0d1015;
+      object-fit:contain;
+      object-position:center center;
+      border:1px solid rgba(255,255,255,.05);
+    }
+
+    .brand-img.mango,
+    .brand-img.malone{
+      height:180px;
+    }
+
+    .brand-name{
+      margin-top:10px;
+      font-size:14px;
+      font-weight:800;
+      color:#fff;
+      line-height:1.3;
+    }
+
+    .brand-text{
+      margin-top:6px;
+      font-size:11px;
+      line-height:1.65;
+      color:var(--sub);
+    }
+
+    .brand-tags,
+    .product-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:8px;
+    }
+
+    .tag{
+      padding:4px 7px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      color:#e8dcc7;
+      font-size:9px;
+      border:1px solid rgba(255,255,255,.05);
+    }
+
+    .product-item{
+      padding-top:12px;
+      padding-bottom:12px;
+      border-top:1px solid var(--line);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .product-item:first-of-type{
+      padding-top:0;
+      border-top:none;
+    }
+
+    .product-img{
+      width:92px;
+      height:92px;
+      border-radius:14px;
+      overflow:hidden;
+      flex-shrink:0;
+      background:#0d1015;
+      border:1px solid rgba(255,255,255,.05);
+    }
+
+    .product-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .product-body{
+      flex:1;
+      min-width:0;
+    }
+
+    .product-name{
+      font-size:14px;
+      font-weight:900;
+      line-height:1.3;
+      color:#fff;
+    }
+
+    .product-sub{
+      margin-top:4px;
+      font-size:10px;
+      color:#d7b27a;
+      font-weight:700;
+    }
+
+    .product-desc{
+      margin-top:6px;
+      font-size:11px;
+      line-height:1.55;
+      color:var(--sub);
+    }
+
+    .case-item{
+      padding-top:12px;
+      padding-bottom:12px;
+      border-top:1px solid var(--line);
+    }
+
+    .case-item:first-of-type{
+      padding-top:0;
+      border-top:none;
+    }
+
+    .case-img{
+      width:100%;
+      display:block;
+      border-radius:16px;
+      background:#0d1015;
+      object-fit:cover;
+      object-position:center center;
+      border:1px solid rgba(255,255,255,.05);
+      height:150px;
+    }
+
+    .case-title{
+      margin-top:10px;
+      font-size:13px;
+      font-weight:900;
+      color:#fff;
+      line-height:1.3;
+    }
+
+    .case-text{
+      margin-top:5px;
+      font-size:11px;
+      color:var(--sub);
+      line-height:1.55;
+    }
+
+    .contact{
+      margin:10px 12px 0;
+      padding:12px;
+      border-radius:20px;
+      background:linear-gradient(180deg, #161b24 0%, #10141a 100%);
+      border:1px solid rgba(255,255,255,.05);
+      box-shadow:var(--shadow);
+    }
+
+    .contact-title{
+      margin:0;
+      font-size:16px;
+      font-weight:900;
+      color:#fff;
+    }
+
+    .contact-tip{
+      margin-top:6px;
+      font-size:11px;
+      line-height:1.55;
+      color:var(--sub);
+    }
+
+    .contact-line{
+      margin-top:6px;
+      font-size:12px;
+      line-height:1.75;
+      color:#f4ede1;
+    }
+
+    .contact-line:first-of-type{
+      margin-top:10px;
+    }
+
+    .contact-label-inline{
+      color:#d8ba8b;
+      font-weight:700;
+    }
+
+    .actions{
+      display:flex;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .btn{
+      flex:1;
+      height:40px;
+      line-height:40px;
+      text-align:center;
+      text-decoration:none;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:800;
+      display:inline-block;
+    }
+
+    .btn-primary{
+      background:linear-gradient(180deg,#ddb57b 0%, #c89a57 100%);
+      color:#16120d;
+      box-shadow:0 8px 16px rgba(200,154,87,.20);
+    }
+
+    .btn-ghost{
+      color:#fff;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .tabbar{
+      height:58px;
+      background:rgba(10,12,16,.96);
+      border-top:1px solid rgba(255,255,255,.05);
+      display:flex;
+      align-items:center;
+      justify-content:space-around;
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:0;
+      width:390px;
+      max-width:100vw;
+      backdrop-filter:blur(10px);
+      z-index:20;
+    }
+
+    .tab{
+      text-align:center;
+      font-size:11px;
+      color:#8f98a6;
+      cursor:pointer;
+      line-height:1.2;
+    }
+
+    .tab .ico{
+      display:block;
+      font-size:16px;
+      line-height:1;
+      margin-bottom:2px;
+      opacity:.9;
+    }
+
+    .tab.active{
+      color:#e7cda4;
+      font-weight:800;
+    }
+
+    .page{ display:none; }
+    .page.active{ display:block; }
+
+    @media (max-width:420px){
+      .phone{
+        width:100%;
+        margin:0;
+        border-radius:0;
+      }
+      .tabbar{
+        width:100%;
+        left:0;
+        transform:none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone" id="top">
+    <div class="topbar">
+      <img class="brand-image" src="./top-brand.png" alt="泉州佳音音响专卖店" />
+    </div>
+
+    <div class="page active" id="home">
+      <section class="hero">
+        <div class="hero-card">
+          <div class="stage">
+            <div class="stage-frame">
+              <div class="stage-img-wrap">
+                <img id="stageImg" class="stage-img" src="./dian1.png" alt="产品展示" />
+              </div>
+            </div>
+            <div class="thumbs" id="thumbs"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">代理品牌</h2>
+            <div class="section-desc">芒果、曼龙两大品牌。</div>
+          </div>
+          <div class="more">查看更多</div>
+        </div>
+
+        <div class="brand-item">
+          <img class="brand-img mango" src="./MAINGO.png" alt="芒果品牌图" />
+          <div class="brand-name">台湾芒果音响</div>
+          <div class="brand-text">家庭娱乐、包房扩声、商业空间都可覆盖。</div>
+          <div class="brand-tags">
+            <span class="tag">家庭K歌</span>
+            <span class="tag">商业扩声</span>
+            <span class="tag">包房娱乐</span>
+          </div>
+        </div>
+
+        <div class="brand-item">
+          <img class="brand-img malone" src="./MALONE.png" alt="曼龙品牌图" />
+          <div class="brand-name">广州曼龙音响</div>
+          <div class="brand-text">会议、K歌、商用扩声更灵活的选择。</div>
+          <div class="brand-tags">
+            <span class="tag">会议扩声</span>
+            <span class="tag">KTV包房</span>
+            <span class="tag">商用场景</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">热门产品</h2>
+            <div class="section-desc">精选主推。</div>
+          </div>
+          <div class="more">查看更多</div>
+        </div>
+
+        <div class="product-item">
+          <div class="product-img"><img src="./KT7112.png" alt="KT7112" /></div>
+          <div class="product-body">
+            <div class="product-name">KT7112</div>
+            <div class="product-sub">主推产品</div>
+            <div class="product-desc">适合家庭娱乐和聚会使用。</div>
+          </div>
+        </div>
+
+        <div class="product-item">
+          <div class="product-img"><img src="./M8715.png" alt="M8715" /></div>
+          <div class="product-body">
+            <div class="product-name">M8715</div>
+            <div class="product-sub">主推产品</div>
+            <div class="product-desc">适合会议室与培训空间。</div>
+          </div>
+        </div>
+
+        <div class="product-item">
+          <div class="product-img"><img src="./DF6000.png" alt="DF6000" /></div>
+          <div class="product-body">
+            <div class="product-name">DF6000</div>
+            <div class="product-sub">主推产品</div>
+            <div class="product-desc">更适合娱乐场景与组合展示。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact">
+        <h2 class="contact-title">联系我们</h2>
+        <div class="contact-tip">到店体验或咨询产品搭配，建议提前联系。</div>
+        <div class="contact-line"><span class="contact-label-inline">电话：</span>13960339779（微信同号）</div>
+        <div class="contact-line"><span class="contact-label-inline">地址：</span>泉州关帝庙对面泉州佳音音响专卖店</div>
+        <div class="actions">
+          <a class="btn btn-primary" href="tel:13960339779">立即拨打</a>
+          <a class="btn btn-ghost" href="javascript:void(0)">添加微信</a>
+        </div>
+      </section>
+    </div>
+
+    <div class="page" id="category">
+      <section class="section" style="margin-top:12px;">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">分类</h2>
+            <div class="section-desc">按场景快速查看内容。</div>
+          </div>
+        </div>
+
+        <div class="brand-item" style="padding-top:0;">
+          <div class="brand-name">产品分类</div>
+          <div class="brand-text">家用、商用、会议、娱乐。</div>
+        </div>
+        <div class="brand-item">
+          <div class="brand-name">品牌分类</div>
+          <div class="brand-text">芒果、曼龙等代理品牌。</div>
+        </div>
+        <div class="brand-item">
+          <div class="brand-name">方案分类</div>
+          <div class="brand-text">家庭K歌、会议扩声等方案。</div>
+        </div>
+        <div class="brand-item">
+          <div class="brand-name">案例分类</div>
+          <div class="brand-text">门店、家庭、会议室案例。</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="page" id="case">
+      <section class="section" style="margin-top:12px;">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">案例分享</h2>
+            <div class="section-desc">安装案例与落地效果。</div>
+          </div>
+          <div class="more">查看更多</div>
+        </div>
+
+        <div class="case-item">
+          <img class="case-img" src="./DF6000四合一.png" alt="家庭K歌案例" />
+          <div class="case-title">家庭K歌 / 影音空间</div>
+          <div class="case-text">兼顾日常观影与家庭娱乐。</div>
+        </div>
+
+        <div class="case-item">
+          <img class="case-img" src="./MALONE_副本.png" alt="会议室案例" />
+          <div class="case-title">企业会议室扩声案例</div>
+          <div class="case-text">提升会议发言清晰度与覆盖。</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="tabbar">
+      <div class="tab active" data-page="home"><span class="ico">⌂</span>首页</div>
+      <div class="tab" data-page="category"><span class="ico">☰</span>分类</div>
+      <div class="tab" data-page="case"><span class="ico">◉</span>案例分享</div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      { img: "./dian1.png" },
+      { img: "./dian2.png" },
+      { img: "./KT7112.png" },
+      { img: "./M8715.png" },
+      { img: "./DF6000.png" },
+      { img: "./DF6000四合一.png" },
+      { img: "./DF8000.png" },
+      { img: "./LS888.png" }
+    ];
+
+    const stageImg = document.getElementById('stageImg');
+    const thumbs = document.getElementById('thumbs');
+
+    let current = 0;
+    let timer = null;
+
+    function renderThumbs() {
+      thumbs.innerHTML = products.map((p, idx) => `
+        <div class="thumb ${idx === 0 ? 'active' : ''}" data-index="${idx}">
+          <img src="${p.img}" alt="产品${idx + 1}">
+        </div>
+      `).join('');
+
+      thumbs.querySelectorAll('.thumb').forEach(el => {
+        el.addEventListener('click', () => {
+          const idx = Number(el.dataset.index);
+          setCurrent(idx, true);
+        });
+      });
+    }
+
+    function renderStage(index) {
+      const p = products[index];
+      stageImg.style.opacity = '0';
+      stageImg.style.transform = 'scale(1.02)';
+      setTimeout(() => {
+        stageImg.src = p.img;
+        const onload = () => {
+          stageImg.style.opacity = '1';
+          stageImg.style.transform = 'scale(1)';
+          stageImg.removeEventListener('load', onload);
+        };
+        stageImg.addEventListener('load', onload);
+      }, 90);
+    }
+
+    function updateActiveThumb() {
+      thumbs.querySelectorAll('.thumb').forEach((el, idx) => {
+        el.classList.toggle('active', idx === current);
+      });
+    }
+
+    function setCurrent(index, user = false) {
+      current = index;
+      renderStage(current);
+      updateActiveThumb();
+      if (user) restartAuto();
+    }
+
+    function next() {
+      current = (current + 1) % products.length;
+      renderStage(current);
+      updateActiveThumb();
+    }
+
+    function restartAuto() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(next, 2600);
+    }
+
+    const pages = document.querySelectorAll('.page');
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const page = tab.dataset.page;
+        pages.forEach(p => p.classList.remove('active'));
+        document.getElementById(page).classList.add('active');
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    renderThumbs();
+    renderStage(0);
+    restartAuto();
+  </script>
+</body>
+</html>
